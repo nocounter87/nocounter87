@@ -1,4 +1,4 @@
-## 《Neural Networks from Scratch in Python》 👋
+##  👋Hi
 
 <!--
 **nocounter87/nocounter87** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
@@ -13,5 +13,5 @@ Here are some ideas to get you started:
 - 📫 How to reach me: ...
 - 😄 Pronouns: ...
 - ⚡ Fun fact: ...
--->- 🔭 Currently working on this book and will keep updating exercise in the book
+-->- 🔭 Currently working on book《Neural Networks from Scratch in Python》and will keep updating exercise in the book
 
