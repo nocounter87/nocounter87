@@ -1,4 +1,4 @@
-## Hi there 👋
+## 《Neural Networks from Scratch in Python》 👋
 
 <!--
 **nocounter87/nocounter87** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
