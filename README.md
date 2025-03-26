@@ -13,6 +13,7 @@ Here are some ideas to get you started:
 - 📫 How to reach me: ...
 - 😄 Pronouns: ...
 - ⚡ Fun fact: ...
--->- 🔭 Currently working on the book《Neural Networks from Scratch in Python》and will keep updating exercise in the book
-🤔 Also studying and wish to establish personal symbol system for brief communication and logic deduction in the near future
+-->
+- 🔭 Currently working on the book《Neural Networks from Scratch in Python》and will keep updating exercise in the book
+- 🤔 Also studying and wish to establish personal symbol system for brief communication and logic deduction in the near future
 
