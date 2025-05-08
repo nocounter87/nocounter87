@@ -27,9 +27,8 @@ Here are some ideas to get you started:
 - <a href="https://nocounter87.github.io/nocounter87/pixel.html">像素游戏与计算机视觉</a>
 -[CNNs]->[池化与抽象]->[图像可视化；像素的抽象]->[像素艺术]->[像素级别的图像识别]-->[人与CNN的识别机制比较分析]-->[期待与贝叶斯先验]
 
--→ [CNNs] → [Pooling & abstraction] → [Image visualization: What is a pixel?] → [Pixel Art vs. Perception]  
-→ [How humans and CNNs recognize structure differently]  
-→ [Bayesian priors, expectations & perception — a future curiosity]
+-[CNNs] → [Pooling & abstraction] → [Image visualization: What is a pixel?] → [Pixel Art vs. Perception]  → [How humans and CNNs recognize structure differently]  
+- → [Bayesian priors, expectations & perception — a future curiosity]
 -
 ### books while reading and hilghlt recommended:
 - 有限与无限的游戏[美] 詹姆斯·卡斯
