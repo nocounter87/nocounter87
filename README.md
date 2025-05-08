@@ -16,8 +16,11 @@ Here are some ideas to get you started:
 -->
 - 🔭 Currently working on the book《Neural Networks from Scratch in Python》and will keep updating relevant code and material 
 - 🤔 Also studying and wishing to establish personal symbol system for brief communication and logic deduction in the near future
-- personal website in building...
-
+- 
+- 
+- personal website in building, welcome to have a look~~
+- Dense的一维性讨论<a href="[index.html](https://nocounter87.github.io/nocounter87/Dense.html)"></a>
+- 
 -
 -
 -
