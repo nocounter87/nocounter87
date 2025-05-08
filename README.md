@@ -13,12 +13,12 @@ Here are some ideas to get you started:
 - 📫 How to reach me: ...
 - 😄 Pronouns: ...
 - ⚡ Fun fact: ...
--->
+---
 - 🔭 Currently working on the book《Neural Networks from Scratch in Python》and will keep updating relevant code and material 
 - 🤔 Also studying and wishing to establish personal symbol system for brief communication and logic deduction in the near future
 - 
 - 
-- personal website in building, welcome to have a look~~(noted with the train of thought~)
+- 🌐 Personal website under construction ~~(noted with the train of thought~)
 
 - <a href="https://nocounter87.github.io/nocounter87/Dense.html">全连接层Dense()的一维性特性</a>
 - [模型架构]->[Dense全连接层]->[Flatten是做什么的？]->[Dense为什么是一维的？]->[局部特征缺失]->[Dense的局限性]-->[CNN]
