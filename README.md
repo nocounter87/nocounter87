@@ -19,6 +19,8 @@ Here are some ideas to get you started:
 - 
 - 🌐 Personal website under construction ~~(noted with the train of thought~)
 ### Notes while learning
+#### academic part
+#### explore part
 - <a href="https://nocounter87.github.io/nocounter87/Dense.html">全连接层Dense()的一维性特性</a>
 - [模型架构]->[Dense全连接层]->[Flatten是做什么的？]->[Dense为什么是一维的？]->[局部特征缺失]->[Dense的局限性]-->[CNN]
   
@@ -28,7 +30,9 @@ Here are some ideas to get you started:
 - [CNNs]->[池化与抽象]->[图像可视化；像素的抽象]->[像素艺术]->[像素级别的图像识别]-->[人与CNN的识别机制比较分析]-->[期待与贝叶斯先验]
 
 - [CNNs] → [Pooling & abstraction] → [Image visualization: What is a pixel?] → [Pixel Art vs. Perception]  → [How humans and CNNs recognize structure differently] → [Bayesian priors, expectations & perception — a future curiosity]
+- 
 -
+- {[Flatten]->[局部特征缺失]}->[时间序列]->[因果感知]->{[叙事]vs[局部感受野]}
 ### books while reading and hilghlt recommended:
 - 有限与无限的游戏[美] 詹姆斯·卡斯
 - 大教堂时代——艺术与社会（980-1420） （法）乔治·杜比（Georges Duby）
