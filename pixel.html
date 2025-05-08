@@ -1,0 +1,227 @@
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>模型复杂度及其效率</title>
+  <style>/* 通用字体与颜色设置 */
+body {
+  font-family: 'Helvetica Neue', sans-serif;
+  background: #e6f0ea;
+  background-size: 60px 60px;
+  color: #2e4e3f;
+  margin: 0;
+  padding: 0;
+  background-attachment: fixed;
+}
+
+/* 页面标题 */
+header {
+  background: #e6f0ea;
+  color: #2e4e3f;
+  padding: 2rem;
+  text-align: center;
+  border-bottom: 2px solid #264d3b;
+}
+header h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+.subtitle {
+  color: #3e7d63;
+  font-size: 1rem;
+}
+
+/* 导航栏 */
+nav {
+  background-color: #3e7d63;
+  padding: 1rem 2rem;
+}
+
+nav a {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+nav a:hover {
+  color: #90b6a2;
+}
+nav.toc {
+  background-color: #eef8f0;
+  border-left: 4px solid #2e4e3f;
+  padding: 1em;
+  margin: 1em 0;
+  border-radius: 8px;
+}
+
+nav.toc h2 {
+  margin-top: 0;
+  font-size: 1.2em;
+  color: #2e4e3f;
+  border-bottom: 1px solid #264d3b;
+  padding-bottom: 0.3em;
+}
+
+nav.toc ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+nav.toc li {
+  margin: 0.5em 0;
+}
+
+nav.toc a {
+  text-decoration: none;
+  color: #3e7d63;
+}
+
+nav.toc a:hover {
+  text-decoration: underline;
+  color: #265942;
+}
+
+/* 正文部分 */
+main {
+  padding: 2rem;
+  max-width: 800px;
+  margin: auto;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(100, 140, 110, 0.4);
+}
+main h2 {
+  color: #3e7d63;
+  margin-top: 10rem;
+}
+main h3 {
+  color: #2e4e3f;
+  margin-top: 1rem;
+}
+main h4 {
+  color: #264d3b;
+  font-weight: bold;
+}
+
+main p {
+  line-height: 1.6;
+  color: #2e4e3f;
+}
+main ul {
+  background: #f0fff5;
+  padding: 1rem 1.5rem;
+  border-left: 4px solid #a0c0a0;
+  list-style-type: disc;
+}
+main ul li {
+  margin: 0.5rem 0;
+}
+
+/* 页脚 */
+footer {
+  background-color: #3e7d63;
+  color: #ffffff;
+  text-align: center;
+  padding: 1rem;
+  margin-top: 3rem;
+  border-top: 2px solid #264d3b;
+}
+
+/* 代码块样式 */
+.code-block {
+  background-color: #f4f9f4;
+  border: 1px solid #a0c8a0;
+  padding: 15px;
+  border-radius: 5px;
+  overflow-x: auto;
+  font-family: 'Courier New', monospace;
+  box-shadow: 0 0 5px rgba(180, 240, 200, 0.2);
+}
+
+code {
+  font-size: 1em;
+  color: #2e4e3f;
+}
+code1 {
+  font-size: 1em;
+  color: #3e7d63;
+}
+
+.math {
+  text-align: center;
+  margin: 1rem 0;
+  font-size: 1.1rem;
+}
+.pixel-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 30px);
+      grid-template-rows: repeat(3, 30px);
+      gap: 2px;
+      width: 100px;
+      height: 100px;
+      margin: 20px auto;
+    }
+    .pixel {
+      width: 30px;
+      height: 30px;
+      background-color: lightgray;
+    }
+    .pixel.eyes {
+      background-color: black;
+    }
+    .pixel.mouth {
+      background-color: gray;
+    }</style>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
+</head>
+  
+  
+<body>
+  <header>
+    <h1>神经网络模型复杂度及其效率</h1>
+    <p class="subtitle">从ANN到CNN</p>
+  </header>
+
+  <nav>
+    <a href="index.html">← 返回首页</a>
+  </nav>
+
+  <main>
+<h2>像素与计算机视觉</h2>
+      <div class="pixel-grid">
+    <!-- 第一行 -->
+    <div class="pixel"></div><div class="pixel"></div><div class="pixel"></div>
+    <!-- 第二行 -->
+    <div class="pixel eyes"></div><div class="pixel"></div><div class="pixel eyes"></div>
+    <!-- 第三行 -->
+    <div class="pixel"></div><div class="pixel mouth"></div><div class="pixel"></div>
+  </div>
+      <p>在计算机视觉中，“像素”是机器看世界的最小单位。都说机器视觉是让计算机像人类一样看，像人类一样理解“看见的东西”。但人类眼睛看到的是完整的场景和语义，而计算机得到的只是一张由像素组成的矩阵，机器需要从像素层面提取结构和特征，才能进行学习和理解。（请先观察上图，--></p>
+        <br><br>
+      <h3>如果你是在搭建一个Minecraft模组，你需要怎么设计才能让别人识别出你设计的物品？</h3>
+      <p>比如人的面部。如果像素太少，你就会只保留眼睛和嘴对不对？甚至都没有必要刻画他们本身，而是只仅仅保留他们之间的相对空间关系。这种识别是靠<Strong>空间关系</Strong>完成的，而不是细节本身。这其实就是高级视觉特征中的：<Strong>几何关系（geometry）</Strong>和<Strong> 布局结构（spatial structure）</Strong>
+        </p>
+       <ul><Strong>因此，识别的关键不是把每个像素都还原，而是找到那些最能代表结构、模式和语义的核心特征。</Strong>
+    </li>
+</ul>
+    
+    <p>因此我们希望有一种机制让神经网络从局部图像中提取信息，而不是整体学习，同时能
+识别重复出现的图案模式，适应其在图案在不同位置出现的能力。
+</p>
+<br><br>
+      
+ <h3>到底要几个像素，我们能把一个东西和其他东西区分开来？</h3>
+      <p>很少的像素或许就能区分开人和猫，但要更多的像素，才能区分出猫和狗。</p>
+<ul><li>区分对象所需的信息量，依赖于对象之间的相似度与识别要求的精确度。</li></ul>
+看到这里，你也可以回想一下，你平时都是怎么观察一个东西的？---你或许会有一些新的疑惑。
+
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Z Scott. All Rights Reserved.</p>
+  </footer>
+  
+</body>
+</html>
