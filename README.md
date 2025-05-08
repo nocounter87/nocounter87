@@ -29,7 +29,7 @@ Here are some ideas to get you started:
 → [How humans and CNNs recognize structure differently]  
 → [Bayesian priors, expectations & perception — a future curiosity]
 -
-- ---books while reading and hilghlt recommended?
+### books while reading and hilghlt recommended:
 - 有限与无限的游戏[美] 詹姆斯·卡斯
 - 大教堂时代——艺术与社会（980-1420） （法）乔治·杜比（Georges Duby）
 - Principles of artificial neural networks (Daniel Graupe).pdf
