@@ -1,0 +1,251 @@
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>模型复杂度及其效率</title>
+  <style>/* 通用字体与颜色设置 */
+body {
+  font-family: 'Helvetica Neue', sans-serif;
+  background:
+  radial-gradient(circle, rgba(255, 255, 255, 0.15) 1px, transparent 1px),
+  linear-gradient(to bottom, #e0f7ff, #ffffff);
+background-size: 60px 60px;
+
+  color: #2C3E50;
+  margin: 0;
+  padding: 0;
+  background-attachment: fixed;
+}
+
+/* 页面标题 */
+header {
+  background: linear-gradient(to right, #d9ecf2, #ffffff);
+  color: #2C3E50;
+  padding: 2rem;
+  text-align: center;
+  border-bottom: 2px solid #c0c0c0;
+}
+header h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+.subtitle {
+  color: #5a7d94;
+  font-size: 1rem;
+}
+
+/* 导航栏 */
+nav {
+  background-color: #5a7d94;
+  padding: 1rem 2rem;
+}
+
+nav a {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+nav a:hover {
+  color: #d0f0ff;
+}
+nav.toc {
+  background-color: #f0f4f8;
+  border-left: 4px solid #2c3e50;
+  padding: 1em;
+  margin: 1em 0;
+  border-radius: 8px;
+}
+
+nav.toc h2 {
+  margin-top: 0;
+  font-size: 1.2em;
+  color: #2c3e50;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 0.3em;
+}
+
+nav.toc ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+nav.toc li {
+  margin: 0.5em 0;
+}
+
+nav.toc a {
+  text-decoration: none;
+  color: #0066cc;
+}
+
+nav.toc a:hover {
+  text-decoration: underline;
+  color: #003366;
+}
+
+
+/* 正文部分 */
+main {
+  padding: 2rem;
+  max-width: 800px;
+  margin: auto;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(180, 200, 220, 0.4);
+}
+main h2 {
+  color: #5a7d94;
+  margin-top: 10rem;
+}
+main h3 {
+  color: #3a5268;
+  margin-top: 1rem;
+}
+main h4 {
+  color: red;
+  font-weight: bold;
+}
+
+
+main p {
+  line-height: 1.6;
+  color: #2C3E50;
+}
+main ul {
+  background: #f0faff;
+  padding: 1rem 1.5rem;
+  border-left: 4px solid #c0c0c0;
+  list-style-type: disc;
+}
+main ul li {
+  margin: 0.5rem 0;
+}
+
+/* 页脚 */
+footer {
+  background-color: #5a7d94;
+  color: #ffffff;
+  text-align: center;
+  padding: 1rem;
+  margin-top: 3rem;
+  border-top: 2px solid #c0c0c0;
+}
+
+/* 代码块样式 */
+.code-block {
+  background-color: #f9f9f9;
+  border: 1px solid #cdd1d6;
+  padding: 15px;
+  border-radius: 5px;
+  overflow-x: auto;
+  font-family: 'Courier New', monospace;
+  box-shadow: 0 0 5px rgba(200, 220, 240, 0.2);
+}
+.code-block {
+      background-color: #f4f4f4; /* 背景色为淡灰色 */
+      border: 1px solid #ddd; /* 边框颜色 */
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      font-family: 'Courier New', monospace;
+    }
+code {
+  font-size: 1em;
+  color: #2C3E50;
+}
+code1 {
+      font-size: 1em;
+      color: #6A9955;
+    }
+
+.math {
+  text-align: center;
+  margin: 1rem 0;
+  font-size: 1.1rem;
+}</style>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
+</head>
+  
+  
+<body>
+  <header>
+    <h1>模型复杂度及其效率</h1>
+    <p class="subtitle">Sequential 构建流程与Dense</p>
+  </header>
+
+  <nav>
+    <a href="index.html">← 返回首页</a>
+  </nav>
+
+  <main>
+
+<h2>4.Dense全连接层</h2>
+      
+      <p>在传统的人工神经网络（ANN）及其深度扩展形式（DNN）中，所有的层都是全连接层（Dense Layer）。在 Dense 层中，每一个神经元都会与前一层的所有神经元相连接，且都进行计算<strong>加权求和</strong>后送入激活函数的操作。</p>
+        <ul>
+        <li>Dense只接受一维数组，所以之前一定要Flatten，将高维数组转化为一维。</li>
+         <li>Dense在输入维度增加时，由于Flatten后，参数量是 （神经元数量 x Input长度 + 神经元数量(偏置)  ），所以参数量迅速膨胀，对于高维特征有计算成本高、训练困难等问题。</li>
+      <li>Dense表现型好，所以通常放在网络的下层，靠近输出端。</li>
+   </ul>
+          
+      <div class="code-block">
+        <h3>示例代码：</h3>
+        <pre><code><code1>#先Flatten</code1>
+layers.Flatten()
+<code1>#需要设置units（神经元数量）和activation（激活函数）两个参量</code1>
+layers.Dense(units=64, activation='relu'),
+layers.Dense(64, activation='relu')</code></pre></ul></div>
+<br><br>
+
+        <h3 id="point1">1.为什么是一维？--Dense 层的“一维性”本质</h3>
+
+<p>
+首先，我们可以注意，全连接层（Dense Layer）使用的加权求和操作本身是对一维数组进行的，所以需要使用Flatten将图片等  nxn  的数组<strong>展平成一个一维向量</strong>。其次，<strong>求和</strong>过程满足<strong>交换律（commutativity）</strong>与<strong>结合律（associativity），其基本计算形式为：</strong>
+
+<p style="text-align: center;">
+  \( \mathbf{y} = f(\mathbf{W} \cdot \mathbf{x} + \mathbf{b}) \)
+</p>
+
+<p style="text-align: center;">
+  \( \sum_{j=1}^{n} W_{ij} x_j = W_{i1} x_1 + W_{i2} x_2 + \dots + W_{in} x_n = W_{i\sigma(1)} x_{\sigma(1)} + \dots + W_{i\sigma(n)} x_{\sigma(n)} \)
+</p>  
+    
+      <p>因此，需要注意的是，Flatten的展平操作使得原本在图像中相邻的像素点，变成了在向量中不相邻的元素，破坏了邻接的空间关系。</p>
+      <p>其次，加权求和的交换性导致对于任意x，求和的顺序的改变都不会影响结果。</p>
+      
+      <p>因此，</p>
+<ul><li>Dense层对输入顺序不敏感，不具有空间信息的<strong>感知能力</strong>，缺乏对空间信息的学习机制。</li></ul>
+      <br><br>
+
+<h3 id="point2">那你也许想问--为什么每个像素有一个对应的权重，仍然不能保留空间信息？</h3>
+
+  <p>在这儿我们要区分<strong>全局特征</strong>和<strong>局部特征</strong>两个概念：</p>
+  <ul>
+<li><strong>全局特征：模型可以学习“第 k 个输入通常为...”这样的位置依赖信息，例如“天空通常在图像上方(前几个输入为蓝色）”。</strong></li>
+<li><strong>局部特征：如“边缘”、“角点”或“图案的延续性”这类依赖于像素邻接关系的结构信息</strong></li>
+ </ul>
+      <p>Dense层的权重是一对一的，每个输入特征都会对应一个权重。确实，网络可以通过训练这些权重来“捕捉”到特征之间的关系，这可以让网络学习到输入特征之间的某些顺序规律。</p>
+
+<p>然而，关键问题是，Dense学习到的这种关系是<strong>全局性</strong>的，而不是局部的。也就是说，Dense 层捕捉到的特征依赖于像素<strong>在整张图片中的位置</strong>，而不是他们与相邻像素的关系（例如“天空通常位于图像上部”）因此当输入图片经过预处理，图像被正确的居中时，训练结果较好。但这也使得模型严重依赖图像预处理的一致性，缺乏对图像平移、缩放、旋转等变换的鲁棒性。</p>
+  <p>Dense假设输入的各个特征之间没有明确的空间、顺序或层级结构，因此将所有特征一视同仁地进行处理。这种“无结构输入”的假设在处理某些数据时是有效的，比如表格数据或全局统计信息，因为其中各维度特征的顺序本身没有语义。</p>
+
+<ul><li>Dense 层缺乏处理空间结构的机制，即便可以拟合某些位置间的关系，也不具备对结构本身的直接感知。</strong></li></ul>
+
+      <p>与之相反的，当面对图像、语音、文本等具有空间或时间结构的数据时，Dense就表现出不足，因此，提出了CNN，有了局部感受野。</p>
+
+<p><strong>当然，如果你再抠字眼一些，我们可以再讨论一下“结构感知”的定义。</strong>"Dense层对输入顺序不敏感，不具有空间信息的感知能力"这句话应该这么说：</p>
+
+
+<ul><li>Dense层对输入顺序不敏感，不具有对空间信息的<strong>天然的结构感知能力</strong></li></ul>
+ 
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Z Scott. All Rights Reserved.</p>
+  </footer>
+  
+</body>
+</html>
