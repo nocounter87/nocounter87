@@ -20,7 +20,7 @@ Here are some ideas to get you started:
 - 
 - personal website in building, welcome to have a look~~
 
-- <a href="index.html">Dense的一维性特性</a>
+- <a href="index.html">全连接层Dense()的一维性特性</a>
 - 
 -
 -
