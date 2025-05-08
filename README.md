@@ -19,7 +19,7 @@ Here are some ideas to get you started:
 - 
 - 
 - personal website in building, welcome to have a look~~
--<a  Dense的一维性讨论 href="[index.html](https://nocounter87.github.io/nocounter87/Dense.html)"></a>
+-<a href="index.html">Dense的一维性特性</a>
 - 
 -
 -
