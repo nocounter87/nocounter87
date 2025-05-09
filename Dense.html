@@ -1,7 +1,7 @@
 <html lang="zh">
 <head>
   <meta charset="UTF-8">
-  <title>模型复杂度及其效率</title>
+  <title>Dense的一维性及其缺陷的本质</title>
   <style>/* 通用字体与颜色设置 */
 body {
   font-family: 'Helvetica Neue', sans-serif;
@@ -172,7 +172,7 @@ code1 {
   
 <body>
   <header>
-    <h1>全连接层Dense的一维性</h1>
+    <h1>Dense的一维性及其缺陷的本质</h1>
     <p class="subtitle">Flatten()的必要性和Dense的空间语义理解局限</p>
   </header>
 
@@ -182,7 +182,7 @@ code1 {
 
   <main>
 
-<h2>4.Dense全连接层</h2>
+<h2>Dense全连接层</h2>
       
       <p>在传统的人工神经网络（ANN）及其深度扩展形式（DNN）中，所有的层都是全连接层（Dense Layer）。在 Dense 层中，每一个神经元都会与前一层的所有神经元相连接，且都进行计算<strong>加权求和</strong>后送入激活函数的操作。</p>
         <ul>
