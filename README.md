@@ -38,3 +38,6 @@ Here are some ideas to get you started:
 - 大教堂时代——艺术与社会（980-1420） （法）乔治·杜比（Georges Duby）
 - Principles of artificial neural networks (Daniel Graupe).pdf
 - Nonlinear dynamic systems
+- 贝叶斯的博弈：数学、思维与人工智能
+
+- 读书笔记--贝叶斯的博弈：数学、思维与人工智能（1）
