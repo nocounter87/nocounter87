@@ -16,13 +16,10 @@ Here are some ideas to get you started:
 -->
 - 🔭 Currently working on the book《Neural Networks from Scratch in Python》and will keep updating relevant code and material 
 - 🤔 Also studying and wishing to establish personal symbol system for brief communication and logic deduction in the near future
-- 
-## 🌐 Personal Website (Under Construction)  
+---
+## 🌐 Personal Website (Under Construction)  --note while learning
 _Noted with the train of thought — thoughts while learning, structuring, building..._
 
----
-
-##  Notes While Learning...
 
 ### 🧪 Academic Part  
 主要聚焦于模型结构、计算机视觉的结构性理解。
@@ -56,11 +53,11 @@ Flatten → 局部特征缺失 → 时间序列 → 因果感知 → 叙事 vs �
 
 ## 📚 Books While Reading & Highly Recommended
 
--《有限与无限的游戏》 — 詹姆斯·卡斯  
--《大教堂时代：艺术与社会（980–1420）》— 乔治·杜比  
--*Principles of Artificial Neural Networks* — Daniel Graupe  
--*Nonlinear Dynamic Systems*  
--《贝叶斯的博弈：数学、思维与人工智能》  
-→ 读书笔记（1）：贝叶斯的博弈
+- 《有限与无限的游戏》 — 詹姆斯·卡斯  
+- 《大教堂时代：艺术与社会（980–1420）》— 乔治·杜比  
+- *Principles of Artificial Neural Networks* — Daniel Graupe  
+- *Nonlinear Dynamic Systems*  
+- 《贝叶斯的博弈：数学、思维与人工智能》  
+-→ 读书笔记（1）：贝叶斯的博弈
 
 ---
