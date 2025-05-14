@@ -1,0 +1,342 @@
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>模型优化参数指标</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* 通用字体与颜色设置 */
+body {
+  font-family: 'Helvetica Neue', sans-serif;
+  background: #f0e6f6;
+  background-size: 60px 60px;
+  color: #3c2a4d;
+  margin: 0;
+  padding: 0;
+  background-attachment: fixed;
+}
+
+/* 页面标题 */
+header {
+  background: #f0e6f6;
+  color: #3c2a4d;
+  padding: 2rem;
+  text-align: center;
+  border-bottom: 2px solid #5e3a74;
+}
+header h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+.subtitle {
+  color: #7a4c99;
+  font-size: 1rem;
+}
+
+/* 导航栏 */
+nav {
+  background-color: #7a4c99;
+  padding: 1rem 2rem;
+}
+
+nav a {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+nav a:hover {
+  color: #d3b9e6;
+}
+
+nav.toc {
+  background-color: #f9f1fd;
+  border-left: 4px solid #3c2a4d;
+  padding: 1em;
+  margin: 1em 0;
+  border-radius: 8px;
+}
+
+nav.toc h2 {
+  margin-top: 0;
+  font-size: 1.2em;
+  color: #3c2a4d;
+  border-bottom: 1px solid #5e3a74;
+  padding-bottom: 0.3em;
+}
+
+nav.toc ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+nav.toc li {
+  margin: 0.5em 0;
+}
+
+nav.toc a {
+  text-decoration: none;
+  color: #7a4c99;
+}
+
+nav.toc a:hover {
+  text-decoration: underline;
+  color: #542d70;
+}
+
+/* 正文部分 */
+main {
+  padding: 2rem;
+  max-width: 800px;
+  margin: auto;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(120, 80, 150, 0.3);
+}
+/* 标题层次样式 */
+main h1 {
+  color: #5b2a82;        /* 最深紫色，最顶层标题 */
+  font-size: 1.8rem;
+  font-weight: 700;
+  border-bottom: 2px solid #a17fb8;
+  padding-bottom: 0.5rem;
+  margin-top: 4rem;
+}
+
+main h2 {
+  color: #7a4c99;        /* 第二层，略浅 */
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-top: 3rem;
+  border-left: 4px solid #c8a2d4;
+  padding-left: 0.6rem;
+}
+
+main h3 {
+  color: #3c2a4d;        /* 第三层，更浓缩的紫色 */
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-top: 2rem;
+}
+
+main h4 {
+  color: #5e3a74;
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin-top: 1.2rem;
+  font-style: italic;
+}
+
+main h5 {
+  color: #836e9f;
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-top: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+main p {
+  line-height: 1.6;
+  color: #3c2a4d;
+}
+main ul {
+  background: #f8f0fb;
+  padding: 1rem 1.5rem;
+  border-left: 4px solid #c9a5df;
+  list-style-type: disc;
+}
+main ul li {
+  margin: 0.5rem 0;
+}
+
+/* 页脚 */
+footer {
+  background-color: #7a4c99;
+  color: #ffffff;
+  text-align: center;
+  padding: 1rem;
+  margin-top: 3rem;
+  border-top: 2px solid #5e3a74;
+}
+
+/* 代码块样式 */
+.code-block {
+  background-color: #f4f0fa;
+  border: 1px solid #caa9e1;
+  padding: 15px;
+  border-radius: 5px;
+  overflow-x: auto;
+  font-family: 'Courier New', monospace;
+  box-shadow: 0 0 5px rgba(160, 120, 200, 0.2);
+}
+
+code {
+  font-size: 1em;
+  color: #3c2a4d;
+}
+code1 {
+  font-size: 1em;
+  color: #7a4c99;
+}
+
+.math {
+  text-align: center;
+  margin: 1rem 0;
+  font-size: 1.1rem;
+}
+
+/* 像素表情图 */
+.pixel-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 30px);
+  grid-template-rows: repeat(3, 30px);
+  gap: 2px;
+  width: 100px;
+  height: 100px;
+  margin: 20px auto;
+}
+.pixel {
+  width: 30px;
+  height: 30px;
+  background-color: #dbcce6;
+}
+.pixel.eyes {
+  background-color: #3c2a4d;
+}
+.pixel.mouth {
+  background-color: #a58bbd;
+}
+
+    /* 给代码块设置背景色和其他样式 */
+    .code-block {
+      background-color: #f4f4f4; /* 背景色为淡灰色 */
+      border: 1px solid #ddd; /* 边框颜色 */
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      font-family: 'Courier New', monospace;
+    }
+
+    /* 高亮显示代码中的关键字 */
+    code {
+      font-size: 1em;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    
+    <h1>模型优化-参数指标及方法</h1>
+    <p class="subtitle">精确度accuracy，损失值loss和验证集指征</p>
+  </header>
+
+  <nav>
+    <a href="https://github.com/nocounter87/nocounter87">← 返回首页</a>
+  </nav>
+
+  <main>
+  <nav class="toc">
+  <h2>内容导航（点击可跳转）</h2>
+  
+    <li><a href="#section1">1. 观察指标（观察什么）</a></li>
+    <br><br>
+    <li><a href="#section2">2. 分析规律</a></li>
+    <li><a href="#point1">2.1  accuracy收敛到一个较低的值就基本不再提升</a></li>
+    <li><a href="#point2">2.2 loss居高不下</a></li>
+    <li><a href="#point3">2.3 验证集合和训练集数值差异大</a></li>
+    <br><br>
+    <li><a href="#section3">3. 调整策略（基于分析如何调参）</a></li>
+</nav> 
+    <br><br>
+    
+    <p><strong>通常，在较为简单的数据集上可以观察到较为理论化的典型特征，但复杂数据集的训练会更为波动，更难描述，也需要逐步，多方的解决，任何的描述会偏向普遍和刻板，因此强烈建议大家亲自实验实践，以下的内容都只是提供思路上的参考。</strong></p>
+<section id='section1'>     
+  <h1>🔹1. 观察指标（观察什么）</h1>
+  <h4>1.1 整体趋势</h4>
+  <p>accurcy和loss是训练时最为重要的两个参数。首先，accuracy和loss都是指一类指标，它们的具体计算方法会根据任务类型（如分类或回归）而有所不同。但总的来说，accuracy反映了机器学习模型的正确率，而loss测量的是模型预测与真实值之间的差距，体现模型还有多少需要学习。</p>
+  <p>这一步需要观察各个参数在一个或者连续的几个epoch中的变化，以及相互关联的变化情况。</p>
+      <h5><strong>理想情况</strong></h5>
+       <p> <strong>在理想情况下</strong>，训练时的accuracy和loss大概都会有以下变化趋势，当符合这些表现时，可以认为你已经有一个<strong>可以进行进一步分析和优化的基础模型：</strong></p>
+      <ul>
+    <li><strong>随训练的进行，在每epoch结束时，accuracy通常会逐步提高，loss通常逐步减小。</strong></li></ul>
+<h5><strong>为什么？</strong></h5>  
+<p>正如前文所述，accuracy反应的是模型的正确率，而loss衡量的是模型输出与真实标签之间的差异，也可以理解为模型“尚未掌握的部分”。因此，正确率的提高和loss的降低意味着模型<strong>正在学到有用的知识，并有效地将其存储于内部结构（如权重）中，从而提升预测能力。</strong></p>
+<br><br>
+<h4>1.2 局部波动</h4>
+  <p><strong>波动也是分析训练过程，检查参数设置，模型稳定性和数据集情况的重要指标，揭示模型对数据的适应能力。这一步需要观察波动的幅度，幅度变化的趋势以及多个参数的综合变化趋势。</strong></p>
+  <p><strong>首先，局部的小幅度的波动是正常的，</strong>尤其是在复杂数据集中和参数尚未稳定时。accuracy和loss在一开始训练时会由于收敛有大幅度的变化，之后波动的幅度应该逐渐减小。</p>
+  
+  
+ <ul><li><strong>复杂训练集：</strong>通常可以认为复杂数据集</li></ul>
+  
+  <p>如果观察到accuracy和loss持续剧烈波动而且数值不理想，通常考虑学习率设置过大，<strong>可先调小学习率（通常lr=0.1，0.01，0.05💡 ，0.001，0.0001，0.0005）</strong>观察情况。</p>
+  <p><strong>其次，训练的波动反映了数据集的分布情况。</strong>如果观察到总在特定步骤出现剧烈波动，可以考虑是数据集本身分布的问题，可以在数据处理阶段和传入训练阶段采取一些随机化方法，然后观察波动是否消除。</p>
+  <p><strong>最后，波动体现了模型的稳定性。</strong>
+    <ul><li><strong>模型的稳定性反映了它对训练数据和参数更新的响应特性</strong>：太稳定可能不够灵活，难以跳出局部最优解，波动过大则难以收敛，所以波动不一定是坏事，适度波动通常意味着模型还具备一定的学习潜力和探索空间。</li></ul>
+    <p>一方面，稳定性强的模型更容易收敛，训练过程可控。更适合使用更大 batch、动态学习率、早停等方法进行精调。另一方面，稳定性强的模型可能难以跳出局部最优解，所以适当增加学习率不仅可以有可观的收敛效率，也帮助模型跳出局部最优解。</p>
+  
+
+
+<h4>1.3 epoch到达多少时发生什么变化？</h4>
+<p>当当前情况不明朗时，都可以延长测试时间，进一步观察参数和变化和模型的表现。</p>
+
+
+  
+ 
+
+ <h3 id='section2'>🔹 2. 分析规律(点击可跳转)</h3>
+    <p><strong>建议配合画图观察，同时使用验证机（validation)辅助，通过对比观察val_accuracy和val_loss辅助验证</strong></p>
+  <p><strong>🌟需要注意，accuracy 和 loss 是衡量模型性能的两个不同维度，各自反映不同层面的信息。</strong></p>
+
+<p><strong>accuracy</strong> 衡量的是模型最终预测是否正确，即预测结果中正确标签所占的比例；它只看是否“选对了”。</p>
+
+<p><strong>loss</strong> 则更细致地评估模型输出的概率分布与真实标签之间的差异。例如，在一个二分类任务中，预测 [0.49, 0.51] 虽然 accuracy 上可能被算作“猜对了”，但由于模型信心不足，loss 值仍然较高。loss 可以防止模型仅靠模糊的概率碰运气地“蒙对”，从而迫使模型学习更有信心的概率分布。</p>
+
+<br><br>
+  
+     <h5 id='point1'>2.1 accuracy收敛到一个较低的值就不再提升</h5>
+  <ul><li><a href='#point11'>若 loss 也停止下降</a> → 模型已学到能力上限。通常认为这是网络结构太浅或参数太少，无法有效拟合复杂的模式。通常伴随着验证集和测试集的accuracy也较低，loss不降低。</li>
+    <li><a href='#point12'>若 loss 仍缓慢下降</a> → 可能存在学习率过低、收敛太慢，更换优化器和适当提高学习率可能更有效。</li>
+  </ul>
+  
+  <h5 id='point2'>2.2 loss居高不下</h5>
+  <ul><li><a href='#point21'>但 accuracy 缓慢上升或波动</a> → 可能存在学习率过高，导致 loss 波动，未能有效收敛或优化器选择不当。</li>
+    <li><a href='#point22'>accracy停滞（accuracy 可能已经达到一个中等水平但不再提升）</a>→认为数据太复杂或预处理不当，如图像数据没有裁剪，归一化，导致无法有效学习到特征。</li>
+  </ul>
+  
+     <h5 id='point3'>2.3 验证集合和训练集数值差异大</h5>
+    <ul>
+    <p>训练 accuracy 升高而 val_accuracy 不升或下降：可能过拟合</p>
+    <p>训练 accuracy 升高速度不如 val_accuracy</p>
+    <p>loss 波动剧烈：可能学习率太高或模型不稳定</p>
+
+<p>验证 loss 降而验证 accuracy 波动：可能任务不适合使用 accuracy 衡量（如排序或回归）</p>
+  
+  </ul>
+  
+  
+  
+
+ <h2 id='section3'>🔹 3. 调整策略（基于分析如何调参）</h2>
+  <h5 id='point11'>1. accuracy收敛到一个较低的值，训练集和验证集的其他参数也不改变</h5>
+  <p>通常伴随着验证集和测试集的accuracy也较低，loss不降低。可以<strong>横纵拓展网络：增加网络层数，增加每层神经元数量</strong>。需要注意堆叠过多的Dense可能造成过拟合甚至模型退化的问题。而对于卷积层，增加卷积层是提高模型对空间层次信息的抽象能力，扩大卷积核或堆叠多尺度卷积 可以提取更复杂更细致的局部特征和纹理。</p>
+  <p>也可能考虑数据特征不明显。考虑进一步数据分析和加强预处理，如数据归一化，特征交叉，图像加强等。</p>
+  <br><br>
+  
+<h5 id='point12'>2. accuracy收敛到一个较低的值，但loss缓慢下降</h5>
+  <p><strong>可能存在学习率过低、收敛太慢，</strong>所以模型实际仍然在更新和优化，所以在概率预测上，loss降低了，但学习率过低，所以在实际分类任务上没有明显的变化。因此可以<strong>适当增加学习率</strong>观察情况。
+  <p>或另一方面，数据集中可能存在异常值或者边界值，而模型正在微调分类边界。通常出现在训练的中后期。但如果accuracy较低，还是考虑模型的表达能力不足的问题，可以<strong>横纵拓展网络：增加网络层数，增加每层神经元数量</strong>后观察。</p>
+  <br><br>
+  
+  <h5 id='point21'>3.loss居高不下，但 accuracy 缓慢上升</h5>
+  <p>和上一种情况不同，loss居高不下，可以认为是学习率太大导致的参数震荡，可能在训练中期和稳定性不足（过深或过宽的模型）的模型中较为常见。可以降低学习率。但需要注意过低的学习率可能会使得模型难以跳出局部最优解，所以进一步可以采用动态学习率，早停之后降低学习率再训练的方式进行进一步的观察。</p>
+  <p>也可能是优化器选择不当。因为accuracy 只关注“预测是否对”，而不是“对得有多自信”。如果 softmax 输出只给正确类别概率为 0.51（接近随机），虽然预测正确，但 loss 依然不低。说明模型还不够确信自己学到的东西，这会导致 loss 降不下来。</p>
+    <br><br> 
+ 
+ <h5 id='point22'>3. loss居高不下，accuracy 可以接受但停滞</h5>
+  <p>如果认为accuracy已经到达了一个不错的值，但loss不降低，可能认为是模型表达能力不足，可以进一步拓展模型。也可以考虑引入更复杂结构如残差连接（ResNet）、注意力机制。</p>
+  <p>或者反过来说，数据集特征表达不明显，可能是没有进行正确的预处理，归一化，除去异常值或者数据集本身噪音较大。同样的原理，此外，在实际应用中，我也遇到过图像增强导致 loss 居高不下的情况，当时还有一个表现是训练集的accuracy低于验证集val_accracy，因此考虑可能采用了过量的图像增强。数据集比较小时，增加图像处理是一个常用的充分学习方法，因此，除了考虑减少图像增强，可以考虑分阶段训练：第一阶段用干净数据，第二阶段引入增强样本，或者采用不同的图像填充方法。</p>
+
+</section>  
+
